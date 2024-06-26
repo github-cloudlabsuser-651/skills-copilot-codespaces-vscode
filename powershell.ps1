@@ -1,10 +1,10 @@
 # Define parameters
 $resourceGroupName = "myResourceGroup"
 $location = "West US"
-$storageAccountName = "mystorageaccount"
+$Name = "mystorageaccount"
 
 # Create a resource group
 New-AzResourceGroup -Name $resourceGroupName -Location $location
 
 # Create a storage account
-New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName Standard_LRS
+New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $Name -Location $location -SkuName Standard_LRS
