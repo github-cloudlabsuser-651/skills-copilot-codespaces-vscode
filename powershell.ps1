@@ -1,10 +1,19 @@
 # Define parameters
 $resourceGroupName = "myResourceGroup"
 $location = "West US"
-$Name = "mystorageaccount"
+$storageAccountName = "mystorageaccount"
 
-# Create a resource group
-New-AzResourceGroup -Name $resourceGroupName -Location $location
+# Login to Azure
+Connect-AzAccount
 
-# Create a storage account
-New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $Name -Location $location -SkuName Standard_LRS
+# Check if resource group exists, if not create one
+$resourceGroup = Get-AzResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
+if (!$resourceGroup) {
+    New-AzResourceGroup -Name $resourceGroupName -Location $location
+}
+
+# Check if storage account exists, if not create one
+$storageAccount = Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -ErrorAction SilentlyContinue
+if (!$storageAccount) {
+    New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName Standard_LRS
+}
